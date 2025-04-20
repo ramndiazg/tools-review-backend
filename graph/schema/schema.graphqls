@@ -1,0 +1,67 @@
+type User {
+  id: ID!
+  name: String!
+  username: String!
+  email: String!
+  createdAt: Time!
+  reviews: [Review!]
+}
+
+type Tool {
+  id: ID!
+  name: String!
+  description: String
+  category: String
+  website: String
+  imageUrl: String
+  createdAt: Time!
+  reviews: [Review!]
+}
+
+type Review {
+  id: ID!
+  rating: Int!
+  comment: String!
+  createdAt: Time!
+  user: User!
+  tool: Tool!
+}
+
+input CreateUserInput {
+  name: String!
+  username: String!
+  email: String!
+  password: String!
+}
+
+input CreateToolInput {
+  name: String!
+  description: String
+  category: String
+  website: String
+  imageUrl: String
+}
+
+input CreateReviewInput {
+  rating: Int!
+  comment: String!
+  userId: ID!
+  toolId: ID!
+}
+
+type Query {
+  users: [User!]!
+  user(id: ID!): User
+  tools: [Tool!]!
+  tool(id: ID!): Tool
+  reviews: [Review!]!
+  review(id: ID!): Review
+}
+
+type Mutation {
+  createUser(input: CreateUserInput!): User!
+  createTool(input: CreateToolInput!): Tool!
+  createReview(input: CreateReviewInput!): Review!
+}
+
+scalar Time
