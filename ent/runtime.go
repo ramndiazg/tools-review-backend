@@ -28,10 +28,6 @@ func init() {
 	review.DefaultID = reviewDescID.Default.(func() uuid.UUID)
 	toolFields := schema.Tool{}.Fields()
 	_ = toolFields
-	// toolDescName is the schema descriptor for name field.
-	toolDescName := toolFields[1].Descriptor()
-	// tool.DefaultName holds the default value on creation for the name field.
-	tool.DefaultName = toolDescName.Default.(string)
 	// toolDescCreatedAt is the schema descriptor for created_at field.
 	toolDescCreatedAt := toolFields[6].Descriptor()
 	// tool.DefaultCreatedAt holds the default value on creation for the created_at field.
@@ -42,10 +38,6 @@ func init() {
 	tool.DefaultID = toolDescID.Default.(func() uuid.UUID)
 	userFields := schema.User{}.Fields()
 	_ = userFields
-	// userDescName is the schema descriptor for name field.
-	userDescName := userFields[1].Descriptor()
-	// user.DefaultName holds the default value on creation for the name field.
-	user.DefaultName = userDescName.Default.(string)
 	// userDescCreatedAt is the schema descriptor for created_at field.
 	userDescCreatedAt := userFields[5].Descriptor()
 	// user.DefaultCreatedAt holds the default value on creation for the created_at field.

@@ -28,14 +28,6 @@ func (tc *ToolCreate) SetName(s string) *ToolCreate {
 	return tc
 }
 
-// SetNillableName sets the "name" field if the given value is not nil.
-func (tc *ToolCreate) SetNillableName(s *string) *ToolCreate {
-	if s != nil {
-		tc.SetName(*s)
-	}
-	return tc
-}
-
 // SetDescription sets the "description" field.
 func (tc *ToolCreate) SetDescription(s string) *ToolCreate {
 	tc.mutation.SetDescription(s)
@@ -138,10 +130,6 @@ func (tc *ToolCreate) ExecX(ctx context.Context) {
 
 // defaults sets the default values of the builder before save.
 func (tc *ToolCreate) defaults() {
-	if _, ok := tc.mutation.Name(); !ok {
-		v := tool.DefaultName
-		tc.mutation.SetName(v)
-	}
 	if _, ok := tc.mutation.CreatedAt(); !ok {
 		v := tool.DefaultCreatedAt()
 		tc.mutation.SetCreatedAt(v)
