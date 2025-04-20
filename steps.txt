@@ -1,0 +1,38 @@
+##configurar el proyecto
+>go mod init tools-review-backend
+
+>go get -d entgo.io/ent/cmd/ent
+>go get github.com/lib/pq
+
+##crear primeros esquemas con ent
+>go run -mod=mod entgo.io/ent/cmd/ent new User
+>go run -mod=mod entgo.io/ent/cmd/ent new Tool
+>go run -mod=mod entgo.io/ent/cmd/ent new Review
+
+##para imports rotos
+>go mod tidy
+
+##generar archivos ent
+>go generate ./ent
+
+##configurar Graphql
+go get github.com/99designs/gqlgen
+go get github.com/vektah/gqlparser/v2
+crear el gqlgen.yml
+crear la estructura de archivos
+>mkdir -p graph/{schema,generated,model}
+crear el archivo graph/schema/schema.graphqls
+generar el codigo:
+>go run github.com/99designs/gqlgen generate //super errores salemn aqui :/
+luego implementar los resolvers
+
+##coneccion con postgress
+database: postgress
+user: admin
+password: 1234
+
+##verificar las tablas creadas
+psql -U admin -d tools-back -c "\dt"
+
+##ejecutar el proyecto
+>go run main.go
