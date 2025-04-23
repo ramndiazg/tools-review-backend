@@ -6,6 +6,6 @@ import (
 )
 
 func main() {
-	log.Println("Starting Tools Review Backend...")
+	log.Println("Tools Review Backend")
 	server.Start()
 }

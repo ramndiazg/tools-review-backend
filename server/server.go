@@ -19,17 +19,17 @@ import (
 const defaultPort = "8080"
 
 func Start() {
-	// Configurar cliente de base de datos
+	// Setup data base
 	client, err := database.NewClient()
 	if err != nil {
 		log.Fatalf("failed opening database connection: %v", err)
 	}
 	defer client.Close()
 
-	// Configurar router
+	// Setup router
 	router := chi.NewRouter()
 
-	// Configurar CORS
+	// Setup cors
 	router.Use(cors.New(cors.Options{
 		AllowedOrigins:   []string{"*"},
 		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
@@ -38,7 +38,7 @@ func Start() {
 		Debug:           true,
 	}).Handler)
 
-	// Configurar GraphQL
+	// Setup GraphQL
 	srv := handler.NewDefaultServer(generated.NewExecutableSchema(generated.Config{
 		Resolvers: graph.NewResolver(client),
 	}))
@@ -51,7 +51,7 @@ func Start() {
 		port = defaultPort
 	}
 
-	// Configurar servidor HTTP
+	// Setup HTTP server
 	httpServer := &http.Server{
 		Addr:         ":" + port,
 		Handler:      router,
@@ -60,6 +60,6 @@ func Start() {
 		IdleTimeout:  120 * time.Second,
 	}
 
-	log.Printf("connect to http://localhost:%s/ for GraphQL playground", port)
+	log.Printf("server running in  http://localhost:%s/ ", port)
 	log.Fatal(httpServer.ListenAndServe())
 }
